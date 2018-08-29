@@ -19,11 +19,11 @@ class KeyboardViewController: UIInputViewController {
     
     var customInterface: UIView!
     
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         
         let nib = UINib(nibName: "CustomKeyBoard", bundle: nil)
-        let objects = nib.instantiateWithOwner(self, options: nil)
+        let objects = nib.instantiate(withOwner: self, options: nil)
         customInterface = objects[0] as! UIView
     }
     
@@ -55,109 +55,109 @@ class KeyboardViewController: UIInputViewController {
     }
     
     func addNextKeyboardButton() {
-        nextKeyboardButton = UIButton(type: .System) as UIButton
+        nextKeyboardButton = UIButton(type: .system) as UIButton
         
-        nextKeyboardButton.setTitle(NSLocalizedString("Next Keyboard", comment: "Title for 'Next Keyboard' button"), forState: .Normal)
+        nextKeyboardButton.setTitle(NSLocalizedString("Next Keyboard", comment: "Title for 'Next Keyboard' button"), for: .normal)
         nextKeyboardButton.sizeToFit()
         nextKeyboardButton.translatesAutoresizingMaskIntoConstraints = false
         
-        nextKeyboardButton.addTarget(self, action: "advanceToNextInputMode", forControlEvents: .TouchUpInside)
+        nextKeyboardButton.addTarget(self, action: #selector(advanceToNextInputMode), for: .touchUpInside)
         
         view.addSubview(nextKeyboardButton)
         
         
         
-        let nextKeyboardButtonLeftSideConstraint = NSLayoutConstraint(item: nextKeyboardButton, attribute: .Left, relatedBy: .Equal, toItem: view, attribute: .Left, multiplier: 1.0, constant: +10.0)
-        let nextKeyboardButtonBottomConstraint = NSLayoutConstraint(item:nextKeyboardButton, attribute: .Bottom, relatedBy: .Equal, toItem: view, attribute: .Bottom, multiplier: 1.0, constant: -10.0)
+        let nextKeyboardButtonLeftSideConstraint = NSLayoutConstraint(item: nextKeyboardButton, attribute: .left, relatedBy: .equal, toItem: view, attribute: .left, multiplier: 1.0, constant: +10.0)
+        let nextKeyboardButtonBottomConstraint = NSLayoutConstraint(item:nextKeyboardButton, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1.0, constant: -10.0)
         view.addConstraints([nextKeyboardButtonLeftSideConstraint, nextKeyboardButtonBottomConstraint])
     }
     
     func addHideKeyboardButton() {
-        hideKeyboardButton = UIButton(type: .System) as UIButton
+        hideKeyboardButton = UIButton(type: .system) as UIButton
         
-        hideKeyboardButton.setTitle("Hide Keyboard", forState: .Normal)
+        hideKeyboardButton.setTitle("Hide Keyboard", for: .normal)
         hideKeyboardButton.sizeToFit()
         hideKeyboardButton.translatesAutoresizingMaskIntoConstraints = false
         
-        hideKeyboardButton.addTarget(self, action: "dismissKeyboard", forControlEvents: .TouchUpInside)
+        hideKeyboardButton.addTarget(self, action: #selector(dismissKeyboard), for: .touchUpInside)
         
         view.addSubview(hideKeyboardButton)
         
-        let rightSideConstraint = NSLayoutConstraint(item: hideKeyboardButton, attribute: .Right, relatedBy: .Equal, toItem: view, attribute: .Right, multiplier: 1.0, constant: -10.0)
-        let bottomConstraint = NSLayoutConstraint(item: hideKeyboardButton, attribute: .Bottom, relatedBy: .Equal, toItem: view, attribute: .Bottom, multiplier: 1.0, constant: -10.0)
+        let rightSideConstraint = NSLayoutConstraint(item: hideKeyboardButton, attribute: .right, relatedBy: .equal, toItem: view, attribute: .right, multiplier: 1.0, constant: -10.0)
+        let bottomConstraint = NSLayoutConstraint(item: hideKeyboardButton, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1.0, constant: -10.0)
         view.addConstraints([rightSideConstraint, bottomConstraint])
     }
     
     func addDot() {
-        dotButton = UIButton(type: .System) as UIButton
-        dotButton.setTitle(".", forState: .Normal)
+        dotButton = UIButton(type: .system) as UIButton
+        dotButton.setTitle(".", for: .normal)
         dotButton.sizeToFit()
         dotButton.translatesAutoresizingMaskIntoConstraints = false
-        dotButton.addTarget(self, action: "didTapDot", forControlEvents: .TouchUpInside)
+        dotButton.addTarget(self, action: #selector(didTapDot), for: .touchUpInside)
         
-        dotButton.titleLabel!.font = UIFont.systemFontOfSize(32)
+        dotButton.titleLabel!.font = UIFont.systemFont(ofSize: 32)
         
         dotButton.backgroundColor = UIColor(white: 0.9, alpha: 1)
         dotButton.layer.cornerRadius = 5
         
         view.addSubview(dotButton)
         
-        let dotCenterYConstraint = NSLayoutConstraint(item: dotButton, attribute: .CenterY, relatedBy: .Equal, toItem: view, attribute: .CenterY, multiplier: 1.0, constant: 0)
-        let dotCenterXConstraint = NSLayoutConstraint(item: dotButton, attribute: .CenterX, relatedBy: .Equal, toItem: view, attribute: .CenterX, multiplier: 1.0, constant: -50)
+        let dotcenterYConstraint = NSLayoutConstraint(item: dotButton, attribute: .centerY, relatedBy: .equal, toItem: view, attribute: .centerY, multiplier: 1.0, constant: 0)
+        let dotcenterXConstraint = NSLayoutConstraint(item: dotButton, attribute: .centerX, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1.0, constant: -50)
         
-        view.addConstraints([dotCenterXConstraint, dotCenterYConstraint])
+        view.addConstraints([dotcenterXConstraint, dotcenterYConstraint])
     }
     
     func addDash() {
-        dashButton = UIButton(type: .System) as UIButton
-        dashButton.setTitle("_", forState: .Normal)
+        dashButton = UIButton(type: .system) as UIButton
+        dashButton.setTitle("_", for: .normal)
         dashButton.sizeToFit()
         dashButton.translatesAutoresizingMaskIntoConstraints = false
-        dashButton.addTarget(self, action: "didTapDash", forControlEvents: .TouchUpInside)
+        dashButton.addTarget(self, action: #selector(didTapDash), for: .touchUpInside)
         
-        dashButton.titleLabel!.font = UIFont.systemFontOfSize(32)
+        dashButton.titleLabel!.font = UIFont.systemFont(ofSize: 32)
         
         dashButton.backgroundColor = UIColor(white: 0.9, alpha: 1)
         dashButton.layer.cornerRadius = 5
         
         view.addSubview(dashButton)
         
-        let dashCenterYConstraint = NSLayoutConstraint(item: dashButton, attribute: .CenterY, relatedBy: .Equal, toItem: view, attribute: .CenterY, multiplier: 1.0, constant: 0)
-        let dashCenterXConstraint = NSLayoutConstraint(item: dashButton, attribute: .CenterX, relatedBy: .Equal, toItem: view, attribute: .CenterX, multiplier: 1.0, constant: +50)
+        let dashcenterYConstraint = NSLayoutConstraint(item: dashButton, attribute: .centerY, relatedBy: .equal, toItem: view, attribute: .centerY, multiplier: 1.0, constant: 0)
+        let dashcenterXConstraint = NSLayoutConstraint(item: dashButton, attribute: .centerX, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1.0, constant: +50)
         
-        view.addConstraints([dashCenterXConstraint, dashCenterYConstraint])
+        view.addConstraints([dashcenterXConstraint, dashcenterYConstraint])
     }
     
     func addDelete() {
-        deleteButton = UIButton(type: .System) as UIButton
-        deleteButton.setTitle(" Delete ", forState: .Normal)
+        deleteButton = UIButton(type: .system) as UIButton
+        deleteButton.setTitle(" Delete ", for: .normal)
         deleteButton.sizeToFit()
         deleteButton.translatesAutoresizingMaskIntoConstraints = false
-        deleteButton.addTarget(self, action: "didTapDelete", forControlEvents: .TouchUpInside)
+        deleteButton.addTarget(self, action: #selector(didTapDelete), for: .touchUpInside)
         
         deleteButton.backgroundColor = UIColor(white: 0.9, alpha: 1)
         deleteButton.layer.cornerRadius = 5
         
         view.addSubview(deleteButton)
         
-        let rightSideConstraint = NSLayoutConstraint(item: deleteButton, attribute: .Right, relatedBy: .Equal, toItem: view, attribute: .Right, multiplier: 1.0, constant: -10.0)
-        let topConstraint = NSLayoutConstraint(item: deleteButton, attribute: .Top, relatedBy: .Equal, toItem: view, attribute: .Top, multiplier: 1.0, constant: +10.0)
+        let rightSideConstraint = NSLayoutConstraint(item: deleteButton, attribute: .right, relatedBy: .equal, toItem: view, attribute: .right, multiplier: 1.0, constant: -10.0)
+        let topConstraint = NSLayoutConstraint(item: deleteButton, attribute: .top, relatedBy: .equal, toItem: view, attribute: .top, multiplier: 1.0, constant: +10.0)
         view.addConstraints([rightSideConstraint, topConstraint])
     }
     
-    func didTapDot() {
+    @objc func didTapDot() {
         let proxy = textDocumentProxy as UITextDocumentProxy
         
         proxy.insertText(".")
     }
     
-    func didTapDash() {
+    @objc func didTapDash() {
         let proxy = textDocumentProxy as UITextDocumentProxy
         
         proxy.insertText("_")
     }
     
-    func didTapDelete() {
+    @objc func didTapDelete() {
         let proxy = textDocumentProxy as UITextDocumentProxy
         
         proxy.deleteBackward()
@@ -174,20 +174,20 @@ class KeyboardViewController: UIInputViewController {
         // Dispose of any resources that can be recreated
     }
     
-    override func textWillChange(textInput: UITextInput?) {
+    override func textWillChange(_ textInput: UITextInput?) {
         // The app is about to change the document's contents. Perform any preparation here.
     }
     
-    override func textDidChange(textInput: UITextInput?) {
+    override func textDidChange(_ textInput: UITextInput?) {
         // The app has just changed the document's contents, the document context has been updated.
         var textColor: UIColor
         let proxy = textDocumentProxy as UITextDocumentProxy
-        if proxy.keyboardAppearance == UIKeyboardAppearance.Dark {
-            textColor = UIColor.whiteColor()
+        if proxy.keyboardAppearance == UIKeyboardAppearance.dark {
+            textColor = UIColor.white
         } else {
-            textColor = UIColor.blackColor()
+            textColor = UIColor.black
         }
-        nextKeyboardButton.setTitleColor(textColor, forState: .Normal)
+        nextKeyboardButton.setTitleColor(textColor, for: .normal)
     }
     
 }
